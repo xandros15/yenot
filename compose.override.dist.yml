@@ -1,0 +1,7 @@
+services:
+  bot:
+    volumes:
+      - ./:/app
+  db:
+    ports:
+      - "5432:5432"

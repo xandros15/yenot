@@ -1,0 +1,16 @@
+{
+  "name": "nododonbot",
+  "version": "1.1.0",
+  "description": "Bot na serwer Nododon",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "prisma": "^6.19.0",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "node-cron": "^3.0.2"
+  }
+}

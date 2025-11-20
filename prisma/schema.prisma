@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model GuildData {
+  id String @id
+  intent String
+}
+
+model UserData {
+  id  String  @id
+  totalMessages Int @default(0)
+  lastMessageTimestamp String @default("null")
+  voicecount  Int @default(0)
+}
+
+model MonthMessages {
+    userId String
+    month Int
+    messages Int
+    year Int @default(0)
+
+    @@id([userId, month, year])
+}
+
+model EventData {
+  id String @id
+  joined String
+}
+
+model RolesData {
+  id String @id
+  type String
+  requirement Int
+}
+
+model dailyActivity {
+  id String @id
+  reroll Boolean
+  count Int
+  selected Boolean
+  completed Boolean
+  prompt String
+}
+
+model Prompts {
+  id Int @id @default(autoincrement())
+  prompt String @unique
+}
+

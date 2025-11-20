@@ -1,0 +1,6 @@
+.replit
+replit.nix
+node_modules/
+.env
+README.md
+.github

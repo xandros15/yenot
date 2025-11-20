@@ -1,0 +1,41 @@
+services:
+  bot:
+    image: docker.box:5000/yenot-bot
+    container_name: discord-bot
+    restart: always
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL_BUILD: ${DATABASE_URL_BUILD}
+      WEBHOOK_LOGI: ${WEBHOOK_LOGI}
+      WEBHOOK_DAILY: ${WEBHOOK_DAILY}
+      WEBHOOK_MODERATOR_EVENT_REMINDER: ${WEBHOOK_MODERATOR_EVENT_REMINDER}
+      TANUKI_ROLE: ${TANUKI_ROLE}
+      SERVER_ID: ${SERVER_ID}
+      OFFKAI_ROLE: ${OFFKAI_ROLE}
+      ONKAI_ROLE: ${ONKAI_ROLE}
+      ADMIN_ROLE: ${ADMIN_ROLE}
+      MODE_ROLE: ${MODE_ROLE}
+      DAILY_MUSIC_CHALLENGE_ROLE: ${DAILY_MUSIC_CHALLENGE_ROLE}
+      DAILY_MUSIC_CHAN: ${DAILY_MUSIC_CHAN}
+      CHANNELS_TIER_3: ${CHANNELS_TIER_3}
+      CHANNELS_TIER_2: ${CHANNELS_TIER_2}
+      CHANNELS_TIER_1: ${CHANNELS_TIER_1}
+      LISTENER_ROLE: ${LISTENER_ROLE}
+    depends_on:
+      - db
+    command: >
+      sh -c "npx prisma generate &&
+       node index.js"
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+      - pgdata2:/var/lib/postgresql/data
+volumes:
+  pgdata2:

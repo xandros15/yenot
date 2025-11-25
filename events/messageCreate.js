@@ -1,3 +1,4 @@
+const {urlPreviewReplace, rules} = require("../functions/urlPreviewReplacer");
 const PREFIX = "!"
 const {env} = process;
 const DAILY_MUSIC_CHAN = env['DAILY_MUSIC_CHAN'];
@@ -65,79 +66,10 @@ module.exports = {
 
 
       //////// POPRAWIANIE EMBEDÓW Z LINKÓW ////////
-      let replaced_links = "";
-      let spoiler_links = false;
-      const spoiler_regex = /\|\|(.*?)\|\|/g;
-      if (spoiler_regex.test(message.content)) spoiler_links = true;
-      const tiktok_regex = /https?:\/\/(?:www\.)?tiktok\.com(\/\@[a-zA-Z0-9_]+)\/video(\/[\w@/-]+)?/g;
-      if (tiktok_regex.test(message.content)) {
-        let tiktok_urls = message.content.match(tiktok_regex);
-        for (const tiktok_url of tiktok_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${tiktok_url.replace(tiktok_regex, "https://vxtiktok.com$1/video$2")}||\n`;
-          } else {
-            replaced_links += `${tiktok_url.replace(tiktok_regex, "https://vxtiktok.com$1/video$2")}\n`;
-          }
-        }
-      }
-      const tiktok_vm_regex = /https?:\/\/vm\.tiktok\.com(\/[\w@/-]+)?/g;
-      if (tiktok_vm_regex.test(message.content)) {
-        let tiktok_vm_urls = message.content.match(tiktok_vm_regex);
-        for (const tiktok_vm_url of tiktok_vm_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${tiktok_vm_url.replace(tiktok_vm_regex, "https://vm.vxtiktok.com$1")}||\n`;
-          } else {
-            replaced_links += `${tiktok_vm_url.replace(tiktok_vm_regex, "https://vm.vxtiktok.com$1")}\n`;
-          }
-        }
-      }
-      const twitter_regex = /https?:\/\/(?:www\.)?twitter\.com(\/[a-zA-Z0-9_]+)\/status(\/[\w@/-]+)?|www\.twitter\.com(\/[a-zA-Z0-9_]+)\/status(\/[\w@/-]+)?/g;
-      if (twitter_regex.test(message.content)) {
-        let twitter_urls = message.content.match(twitter_regex);
-        for (const twitter_url of twitter_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${twitter_url.replace(twitter_regex, "https://vxtwitter.com$1/status$2")}||\n`;
-          } else {
-            replaced_links += `${twitter_url.replace(twitter_regex, "https://vxtwitter.com$1/status$2")}\n`;
-          }
-        }
-      }
-      const x_regex = /https?:\/\/(?:www\.)?x\.com(\/[a-zA-Z0-9_]+)\/status(\/[\w@/-]+)?|www\.x\.com(\/[a-zA-Z0-9_]+)\/status(\/[\w@/-]+)?/g;
-      if (x_regex.test(message.content)) {
-        let x_urls = message.content.match(x_regex);
-        for (const x_url of x_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${x_url.replace(x_regex, "https://vxtwitter.com$1/status$2")}||\n`;
-          } else {
-            replaced_links += `${x_url.replace(x_regex, "https://vxtwitter.com$1/status$2")}\n`;
-          }
-        }
-      }
-      const pixiv_regex = /https?:\/\/(?:www\.)?pixiv\.net(\/[\w/-]+)?|www\.pixiv\.net(\/[\w/-]+)/g;
-      if (pixiv_regex.test(message.content)) {
-        let pixiv_urls = message.content.match(pixiv_regex);
-        for (const pixiv_url of pixiv_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${pixiv_url.replace(pixiv_regex, "https://phixiv.net$1")}||\n`;
-          } else {
-            replaced_links += `${pixiv_url.replace(pixiv_regex, "https://phixiv.net$1")}\n`;
-          }
-        }
-      }
-      const reddit_regex = /https?:\/\/(?:www\.)?(?:old\.)?reddit\.com(\/[\w@/-]+)?|www\.reddit\.com(\/[\w@/-]+)?/g;
-      if (reddit_regex.test(message.content)) {
-        let reddit_urls = message.content.match(reddit_regex);
-        for (const reddit_url of reddit_urls) {
-          if (spoiler_links) {
-            replaced_links += `||${reddit_url.replace(reddit_regex, "https://rxddit.com$1")}||\n`;
-          } else {
-            replaced_links += `${reddit_url.replace(reddit_regex, "https://rxddit.com$1")}\n`;
-          }
-        }
-      }
+      const replacedLinks = urlPreviewReplace(message.content, rules)
 
-      if (replaced_links.length > 0) {
-        await message.reply(replaced_links);
+      if (replacedLinks.length > 0) {
+        await message.reply(replacedLinks.join("\n"));
         await message.suppressEmbeds(true);
       }
     })

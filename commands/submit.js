@@ -16,11 +16,12 @@ module.exports = {
     );
 
     if (!results.success) {
-      await interaction.editReply({content: results.message})
+      interaction.editReply({content: results.message})
 
       return;
     }
 
+    interaction.editReply({content: `Dzięki za wykonanie zadania!`})
     await webhook.daily.send(`Zadanie ${results.data.prompt} zostało wykonane! ${interaction.user} zapostował: ${results.data.link}`)
   }
 }

@@ -71,11 +71,12 @@ async function submitChallenge(
     };
   }
 
-  const dailyUser = await prisma.dailyActivity.findMany({
+  const users = await prisma.dailyActivity.findMany({
     where: {selected: true},
     orderBy: {count: 'asc'},
     take: 1000
-  })[0] || null
+  })
+  const dailyUser = users[0] || null
 
   if (!dailyUser || dailyUser.id !== senderId || dailyUser.completed) {
     return {
@@ -83,8 +84,6 @@ async function submitChallenge(
       message: 'Dzisiaj nie masz zadania lub zostało już wysłane.',
     };
   }
-
-
 
   await prisma.dailyActivity.update({
     where: {id: senderId},

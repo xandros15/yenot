@@ -55,7 +55,6 @@ for (const eventFile of eventDir) {
 }
 
 bot.on('interactionCreate', async interaction => {
-
   let type = 'commands'
   switch (true) {
     case interaction.isAnySelectMenu():
@@ -72,11 +71,7 @@ bot.on('interactionCreate', async interaction => {
       break;
   }
 
-  interaction.commandName ? commandType = interaction.commandName : commandType = interaction.customId
-
-  const command = require(`./${type}/${commandType}`);
-  command.execute(interaction, options);
+  require(`./${type}/${interaction.commandName || interaction.customId}`).execute(interaction, options);
 })
 
 bot.login(process.env[`DISCORD_TOKEN`]);
-

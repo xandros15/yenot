@@ -1,5 +1,3 @@
-const {} = require(`discord.js`)
-
 module.exports = {
   async execute(interaction, {prisma}) {
     await interaction.deferReply({ephemeral: true})
@@ -10,7 +8,7 @@ module.exports = {
       })
       await interaction.editReply(`Dodano prompt '${record.prompt}' otrzymał id [${record.id}]`)
       console.log(`${interaction.user.tag} dodał prompt '${record.prompt}' otrzymał id [${record.id}]`)
-    } catch (error) {
+    } catch {
       await interaction.editReply('Taki prompt już istnieje')
     }
   }

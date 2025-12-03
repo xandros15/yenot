@@ -47,7 +47,7 @@ module.exports = {
         const guild = await bot.guilds.fetch(SERVER_ID)
         await guild.members.fetch(selectedUserId)
         select = false;
-      } catch (error) {
+      } catch {
         await prisma.dailyActivity.delete({
           where: {id: `${selectedUserId}`}
         })

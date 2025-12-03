@@ -9,7 +9,7 @@ module.exports = {
       replacement: 'https://www.uuinstagram.com/p/$1',
     },
     {//tiktok video
-      regex: /https?:\/\/(?:www\.)?tiktok\.com(\/@[a-zA-Z0-9_]+)\/video(\/[\w@\/-]+)/g,
+      regex: /https?:\/\/(?:www\.)?tiktok\.com(\/@[a-zA-Z0-9_]+)\/video(\/[\w@/-]+)/g,
       replacement: 'https://d.tnktok.com$1/video$2',
     },
     {//tiktok post

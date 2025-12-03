@@ -4,6 +4,7 @@ const ALLOWED_URLS = [
   ['youtu.be', /\/\w+/],
   ['youtube-nocookie.com', /\/embed\/\w+/,],
   ['animethemes.moe', /\/anime\/.+/,],
+  ['music.youtube.com', /\/watch/, 'v'],
 ]
 const ALLOWED_QUERY_KEYS = ['v'];
 

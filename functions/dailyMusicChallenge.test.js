@@ -30,13 +30,17 @@ test('isValidLink when pass valid m.youtube.com link then return true', () => {
   expect(isValid).toBe(true)
 })
 
+test('isValidLink when pass valid music.youtube.com link then return true', () => {
+  const isValid = isValidLink('https://music.youtube.com/watch?v=ftH8Q-QxWSE');
+
+  expect(isValid).toBe(true)
+})
 
 test('isValidLink when pass string that isnt link then return false', () => {
   const isValid = isValidLink('this isnt link');
 
   expect(isValid).toBe(false)
 })
-
 
 test('isValidLink when pass not supported domain link then return false', () => {
   const isValid = isValidLink('https://open.spotify.com/track/4oE7MyJhqSD3BaHRpNs8Nl');

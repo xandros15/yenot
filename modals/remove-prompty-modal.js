@@ -1,5 +1,3 @@
-require(`discord.js`)
-
 module.exports = {
   async execute(interaction, {prisma}) {
     await interaction.deferReply({ephemeral: true})
@@ -10,7 +8,7 @@ module.exports = {
       })
       await interaction.editReply(`Usunięto prompt: ${record.prompt}`)
       console.log(`${interaction.user.tag} usunął prompt: ${record.prompt}`)
-    } catch (error) {
+    } catch {
       await interaction.editReply('Błędny ID prompta')
     }
   }

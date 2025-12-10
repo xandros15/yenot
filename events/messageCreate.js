@@ -69,10 +69,16 @@ module.exports = {
       const replacedLinks = urlPreviewReplace(message.content, rules)
 
       if (replacedLinks.length > 0) {
-        await message.reply(replacedLinks.join("\n"));
-        await message.suppressEmbeds(true);
+        await Promise.all([
+          message.reply({
+            content: replacedLinks.join("\n"),
+            allowedMentions: {
+              repliedUser: false
+            },
+          }),
+          message.suppressEmbeds(true),
+        ])
       }
     })
-
   }
 }

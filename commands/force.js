@@ -31,7 +31,7 @@ module.exports = {
       where: {id: `${selectedUserId}`},
       update: {
         selected: true,
-        prompt: givenPrompt
+        prompt: givenPrompt.prompt
       },
       create: {
         id: `${selectedUserId}`,
@@ -39,11 +39,11 @@ module.exports = {
         count: 0,
         selected: true,
         completed: false,
-        prompt: givenPrompt,
+        prompt: givenPrompt.prompt,
       }
     })
-    await webhook.daily.send(`Siema <@${selectedUserId}>, zapostuj dzisiaj ${givenPrompt} [jeśli chcesz zrerolować użyj komendy /reroll a jeśli chcesz oddać zadanie użyj komendy /submit]`)
-    console.log(`Daily challenge dla : ${selectedUserId}, prompt: ${givenPrompt} [forced]`)
+    await webhook.daily.send(`Siema <@${selectedUserId}>, zapostuj dzisiaj ${givenPrompt.prompt} [jeśli chcesz zrerolować użyj komendy /reroll a jeśli chcesz oddać zadanie użyj komendy /submit]`)
+    console.log(`Daily challenge dla : ${selectedUserId}, prompt: ${givenPrompt.prompt} [forced]`)
 
     await interaction.editReply({content: `Wymuszono losowanie daily!`})
   }

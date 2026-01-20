@@ -1,6 +1,7 @@
 const {urlPreviewReplace, rules} = require("../functions/urlPreviewReplacer");
 const PREFIX = "!"
 const {env} = process;
+const TANUKI_ROLE = env[`TANUKI_ROLE`]
 const DAILY_MUSIC_CHAN = env['DAILY_MUSIC_CHAN'];
 const CHANNELS_TIER_3 = env[`CHANNELS_TIER_3`].split(',').map(s => s.trim());
 const CHANNELS_TIER_2 = env[`CHANNELS_TIER_2`].split(',').map(s => s.trim());
@@ -64,6 +65,13 @@ module.exports = {
         })
       }
 
+      /////// NADAWANIE YENOT ROLI //////
+      if (!message.member?.roles.resolve(TANUKI_ROLE)) {
+        message.member.roles.add(TANUKI_ROLE).then(() => {
+          console.log(`Dodano role jenota dla dla ${message.author.tag}`)
+          message.channel.send(`Oficjalnie ${message.member} zostaje jenotem!`)
+        }).catch(e => console.error(`Błąd przy nadaniu roli jenota:\n ${e}`))
+      }
 
       //////// POPRAWIANIE EMBEDÓW Z LINKÓW ////////
       const replacedLinks = urlPreviewReplace(message.content, rules)

@@ -1,6 +1,6 @@
 const {SlashCommandBuilder} = require(`discord.js`);
 const {env} = process;
-const TANUKI_ROLE = env[`TANUKI_ROLE`];
+const BIG_TANUKI_ROLE = env[`BIG_TANUKI_ROLE`];
 const SERVER_ID = env[`SERVER_ID`];
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
     for (const activeUser of activeUsers) {
       try {
         const member = await guild.members.fetch(activeUser.userId)
-        member.roles.add(TANUKI_ROLE)
+        member.roles.add(BIG_TANUKI_ROLE)
       } catch (e) {
         console.error(e)
       }

@@ -1,6 +1,6 @@
 const {SlashCommandBuilder} = require(`discord.js`);
 const {env} = process;
-const TANUKI_ROLE = env[`TANUKI_ROLE`];
+const BIG_TANUKI_ROLE = env[`BIG_TANUKI_ROLE`];
 const SERVER_ID = env[`SERVER_ID`];
 
 module.exports = {
@@ -12,12 +12,12 @@ module.exports = {
     guild
       .roles
       .cache
-      .get(TANUKI_ROLE)
+      .get(BIG_TANUKI_ROLE)
       .members
       .forEach(
         m => m
           .roles
-          .remove(TANUKI_ROLE)
+          .remove(BIG_TANUKI_ROLE)
       );
 
     await interaction.reply({content: `Wykonano!`, ephemeral: true});

@@ -3,6 +3,7 @@ const PREFIX = "!"
 const {env} = process;
 const TANUKI_ROLE = env[`TANUKI_ROLE`]
 const DAILY_MUSIC_CHAN = env['DAILY_MUSIC_CHAN'];
+const HONEY_POT_CHAN = env['HONEY_POT_CHAN'];
 const CHANNELS_TIER_3 = env[`CHANNELS_TIER_3`].split(',').map(s => s.trim());
 const CHANNELS_TIER_2 = env[`CHANNELS_TIER_2`].split(',').map(s => s.trim());
 const CHANNELS_TIER_1 = env[`CHANNELS_TIER_1`].split(',').map(s => s.trim());
@@ -32,7 +33,7 @@ module.exports = {
     bot.on('messageCreate', async (message) => {
       if (message.author.bot) return;
       if (message.webhookId) return;
-      if (message.content.startsWith(`${PREFIX}`) && (message.channel.id == DAILY_MUSIC_CHAN)) {
+      if (message.content.startsWith(`${PREFIX}`) && (message.channel.id === DAILY_MUSIC_CHAN)) {
         const args = message.content.slice(PREFIX.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase();
         try {
@@ -63,6 +64,27 @@ module.exports = {
             year,
           }
         })
+      }
+
+      /////// HONEYPOT NA BOTY /////
+      if (message.channel.id === HONEY_POT_CHAN) {
+        const guild = message.guild;
+        const userId = message.author.id;
+
+        try {
+          await guild.members.ban(userId, {reason: 'Honeypot channel trigger'});
+          await message.delete().catch(() => {});
+          setTimeout(async () => {
+            try {
+              await guild.members.unban(userId, 'Temporary ban expired');
+            } catch (e) {
+              console.log('Unban failed (user may already be gone):', e.message);
+            }
+          }, 60 * 1000 * 10); //10min
+        } catch (err) {
+          console.error('Ban error:', err);
+        }
+        return; //zignoruj późniejsze akcje
       }
 
       /////// NADAWANIE YENOT ROLI //////

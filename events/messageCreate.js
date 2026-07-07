@@ -73,11 +73,15 @@ module.exports = {
 
         try {
           const deleteMessageSeconds = 60 * 60; //1h
-          await guild.members.ban(userId, {deleteMessageSeconds, reason: 'Honeypot channel trigger'});
+          const unbanTime = 60 * 1000 * 10; //10min
+          await message.member.timeout(unbanTime, 'Honeypot channel trigger')
+          setTimeout(async () => {
+            await guild.members.ban(userId, {deleteMessageSeconds, reason: 'Honeypot channel trigger'});
+          }, 1000) //1s
           setTimeout(async () => {
             await guild.members.unban(userId, 'Temporary ban expired')
               .catch(e => console.log('Unban failed (user may already be gone):', e.message));
-          }, 60 * 1000 * 10); //10min
+          }, unbanTime); //10min
         } catch (err) {
           console.error('Ban error:', err);
         }

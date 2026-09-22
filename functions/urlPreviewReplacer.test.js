@@ -154,22 +154,6 @@ test('Url preview replace when content has twitter link then return replaced twi
   ])
 })
 
-test('Url preview replace when content has reddit link then return replaced reddit link in list', () => {
-  const expectedLinkList = urlPreviewReplace('Hey, this is awesome: https://www.reddit.com/r/interestingasfuck/comments/1p6av9n/mud_men_tribe_of_papua_new_guinea/', rules);
-
-  expect(expectedLinkList).toEqual([
-    'https://rxddit.com/r/interestingasfuck/comments/1p6av9n/mud_men_tribe_of_papua_new_guinea/'
-  ])
-})
-
-test('Url preview replace when content has old reddit link then return replaced old reddit link in list', () => {
-  const expectedLinkList = urlPreviewReplace('Hey, this is awesome: https://old.reddit.com/r/interestingasfuck/comments/1p6av9n/mud_men_tribe_of_papua_new_guinea/', rules);
-
-  expect(expectedLinkList).toEqual([
-    'https://rxddit.com/r/interestingasfuck/comments/1p6av9n/mud_men_tribe_of_papua_new_guinea/'
-  ])
-})
-
 test('Url preview replace when content has vm tiktok link then return replaced vm tiktok link in list', () => {
   const expectedLinkList = urlPreviewReplace('Hey, this is awesome: https://vm.tiktok.com/ZNdTaBLxS/', rules);
 

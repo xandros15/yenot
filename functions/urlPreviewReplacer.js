@@ -24,10 +24,6 @@ module.exports = {
       regex: /https?:\/\/(?:www\.)?pixiv\.net(\/[\w/-]+)/g,
       replacement: 'https://phixiv.net$1',
     },
-    {//reddit
-      regex: /https?:\/\/(?:www\.)?(?:old\.)?reddit\.com(\/[\w@/-]+)/g,
-      replacement: 'https://rxddit.com$1',
-    },
     {//amiami eng
       regex: /https?:\/\/(?:www\.)?amiami\.com\/eng\/detail\/?\?gcode=([\w-]+)/g,
       replacement: 'https://figurki.harvestasha.org/eng/detail?gcode=$1',
